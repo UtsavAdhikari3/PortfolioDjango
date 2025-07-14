@@ -1,9 +1,14 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+from .models import Project
 from django.http import HttpResponse
 
-def home_view(request):
-    return HttpResponse("Hello from Portfolio Home!")
+
+class HomePageView(ListView):
+    model = Project
+    template_name = "portfolio/home.html"
+    context_object_name = "projects"
 
 
-def api_view(request):
-    return HttpResponse("Hello this is the api view")
+
+def api_view(response):
+    return HttpResponse("Api_view")

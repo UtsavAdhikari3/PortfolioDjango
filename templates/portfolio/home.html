@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+{% block title %}Projects • Portfolio{% endblock %}
+{% block content %}
+<h1 class="mb-4">Projects</h1>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {% for project in projects %}
+  <div class="col">
+      <div class="card h-100 shadow-sm">
+          {% if project.thumbnail %}
+            <img src="{{ project.thumbnail.url }}" class="card-img-top" alt="{{ project.title }}">
+          {% endif %}
+          <div class="card-body">
+              <h5 class="card-title">{{ project.title }}</h5>
+              <p class="card-text">{{ project.description|truncatechars:150 }}</p>
+          </div>
+          <div class="card-footer bg-white border-0 d-flex gap-2">
+              {% if project.github_url %}
+                <a href="{{ project.github_url }}" class="btn btn-sm btn-outline-dark" target="_blank">GitHub</a>
+              {% endif %}
+              {% if project.live_demo %}
+                <a href="{{ project.live_demo }}" class="btn btn-sm btn-outline-primary" target="_blank">Live</a>
+              {% endif %}
+          </div>
+      </div>
+  </div>
+  {% empty %}
+      <p>No projects yet—log in to admin and add one!</p>
+  {% endfor %}
+</div>
+{% endblock %}
