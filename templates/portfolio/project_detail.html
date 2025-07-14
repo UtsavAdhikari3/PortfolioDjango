@@ -1,0 +1,31 @@
+{% extends "_base.html" %}
+{% block title %}{{ project.title }}{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-lg-8">
+      <h1>{{ project.title }}</h1>
+      <p class="text-muted">{{ project.created_at|date:"F j, Y" }}</p>
+      {% if project.thumbnail %}
+        <img src="{{ project.thumbnail.url }}" class="img-fluid mb-3" alt="{{ project.title }}">
+      {% endif %}
+      <p>{{ project.description|linebreaks }}</p>
+
+      {% if project.github_url or project.live_demo %}
+      <div class="mt-4">
+          {% if project.github_url %}
+            <a href="{{ project.github_url }}" class="btn btn-outline-dark me-2" target="_blank">View on GitHub</a>
+          {% endif %}
+          {% if project.live_demo %}
+            <a href="{{ project.live_demo }}" class="btn btn-outline-primary" target="_blank">Live Demo</a>
+          {% endif %}
+          {% if project.tech_list %}
+          {% for tech in project.tech_list %}
+             <span class="badge bg-secondary me-1">{{ tech }}</span>
+          {% endfor %}
+            {% endif %}
+      </div>
+      {% endif %}
+  </div>
+</div>
+{% endblock %}

@@ -17,6 +17,10 @@
           <div class="card-footer bg-white border-0 d-flex gap-2">
               {% if project.github_url %}
                 <a href="{{ project.github_url }}" class="btn btn-sm btn-outline-dark" target="_blank">GitHub</a>
+                <a href="{% url 'project-detail' project.slug %}" class="btn btn-sm btn-outline-dark" target="_blank">
+                    {{ project.title }}
+                </a>
+                  
               {% endif %}
               {% if project.live_demo %}
                 <a href="{{ project.live_demo }}" class="btn btn-sm btn-outline-primary" target="_blank">Live</a>

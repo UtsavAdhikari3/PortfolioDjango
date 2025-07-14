@@ -13,8 +13,12 @@ class Project(models.Model):
     tech_stack = models.CharField(max_length=250, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def tech_list(self):
+        return [t.strip() for t in self.tech_stack.split(',') if t.strip()]
+    
     class Meta:
         ordering = ["-created_at"]
-        
+
         def __str__(self):
             return self.title
