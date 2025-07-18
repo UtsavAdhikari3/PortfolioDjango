@@ -1,35 +1,90 @@
+{# templates/portfolio/home.html #}
 {% extends "_base.html" %}
-{% block title %}Projects • Portfolio{% endblock %}
-{% block content %}
-<h1 class="mb-4">Projects</h1>
+{% load static %}
 
-<div class="row row-cols-1 row-cols-md-2 g-4">
-  {% for project in projects %}
-  <div class="col">
-      <div class="card h-100 shadow-sm">
-          {% if project.thumbnail %}
-            <img src="{{ project.thumbnail.url }}" class="card-img-top" alt="{{ project.title }}">
-          {% endif %}
-          <div class="card-body">
-              <h5 class="card-title">{{ project.title }}</h5>
-              <p class="card-text">{{ project.description|truncatechars:150 }}</p>
-          </div>
-          <div class="card-footer bg-white border-0 d-flex gap-2">
-              {% if project.github_url %}
-                <a href="{{ project.github_url }}" class="btn btn-sm btn-outline-dark" target="_blank">GitHub</a>
-                <a href="{% url 'project-detail' project.slug %}" class="btn btn-sm btn-outline-dark" target="_blank">
-                    {{ project.title }}
-                </a>
-                  
-              {% endif %}
-              {% if project.live_demo %}
-                <a href="{{ project.live_demo }}" class="btn btn-sm btn-outline-primary" target="_blank">Live</a>
-              {% endif %}
+{% block title %}Projects • Portfolio{% endblock %}
+
+{% block content %}
+<!-- ===== About Me / Hero ===== -->
+<div class="bg-light p-4 p-md-5 rounded shadow-sm mb-5">
+  <div class="d-flex flex-column flex-md-row align-items-center gap-4">
+      {% if intro.avatar_url %}
+        <img src="{% static intro.avatar_url %}"
+             class="rounded-circle shadow" width="120" height="120"
+             alt="{{ intro.full_name }}">
+      {% endif %}
+
+      <div>
+          <h1 class="h3 mb-1">{{ intro.full_name }}</h1>
+          <h2 class="h6 text-muted mb-3">{{ intro.tagline }}</h2>
+          <p class="mb-3">{{ intro.blurb }}</p>
+
+          <div class="d-flex flex-wrap gap-2">
+            {% if intro.resume_url %}
+              <a href="{% static intro.resume_url %}"
+                 class="btn btn-sm btn-primary" target="_blank">
+                 Download Resume
+              </a>
+            {% endif %}
+            {% if intro.github %}
+              <a href="{{ intro.github }}"
+                 class="btn btn-sm btn-outline-dark" target="_blank">
+                 GitHub
+              </a>
+            {% endif %}
+            {% if intro.linkedin %}
+              <a href="{{ intro.linkedin }}"
+                 class="btn btn-sm btn-outline-primary" target="_blank">
+                 LinkedIn
+              </a>
+            {% endif %}
           </div>
       </div>
   </div>
+</div>
+
+<!-- ===== Project Grid ===== -->
+<h2 class="mb-4">Projects</h2>
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  {% for project in projects %}
+    <div class="col">
+      <div class="card h-100 shadow-sm position-relative">
+          {% if project.thumbnail %}
+            <img src="{{ project.thumbnail.url }}" class="card-img-top"
+                 alt="{{ project.title }}">
+          {% endif %}
+
+          <div class="card-body">
+              <h5 class="card-title mb-2">
+                <a href="{% url 'project-detail' project.slug %}"
+                   class="stretched-link text-decoration-none text-dark">
+                   {{ project.title }}
+                </a>
+              </h5>
+              <p class="card-text">
+                 {{ project.description|truncatechars:150 }}
+              </p>
+          </div>
+
+          <div class="card-footer bg-white border-0 d-flex gap-2">
+              {% if project.github_url %}
+                <a href="{{ project.github_url }}"
+                   class="btn btn-sm btn-outline-dark" target="_blank">
+                   GitHub
+                </a>
+              {% endif %}
+              {% if project.live_demo %}
+                <a href="{{ project.live_demo }}"
+                   class="btn btn-sm btn-outline-primary" target="_blank">
+                   Live
+                </a>
+              {% endif %}
+          </div>
+      </div>
+    </div>
   {% empty %}
-      <p>No projects yet—log in to admin and add one!</p>
+    <p>No projects yet—log in to admin and add one!</p>
   {% endfor %}
 </div>
 {% endblock %}

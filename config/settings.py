@@ -130,3 +130,19 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 TEMPLATES[0]['DIRS'] = [os.path.join(BASE_DIR, 'templates')]
 MEDIA_URL  = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+PORTFOLIO_INTRO = {
+    "full_name": "Utsav Adhikari",
+    "tagline":   "Python / Django Developer & Junior Backend Developer at Tinker Technology",
+    "blurb": (
+        "Junior CS student at UNH. I build REST APIs, automate tests, "
+        "and occasionally break production at 3 A.M. "
+        "Currently working at Tinker Technology."
+    ),
+    "resume_url": "static/docs/Sammy_Resume.pdf",
+    "avatar_url": "/img/profile.jpg",       
+    "location": "Kathmandu, Nepal",
+    "email": "sammy@example.com",                  
+    "github": "https://github.com/UtsavAdhikari3",    
+    "linkedin": "https://www.linkedin.com/in/utsav-adhikari-762a42235/",
+}
